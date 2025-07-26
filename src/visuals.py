@@ -45,3 +45,7 @@ dice_art: dict = {
         "└─────────┘"
     )
 }
+
+die_height: int = len(dice_art[1])
+die_width: int = len(dice_art[1][0])
+die_separator: str = "  "

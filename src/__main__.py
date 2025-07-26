@@ -1,7 +1,7 @@
 # File name: __main__.py | Date: 26/07/2025
 # Made by cogos18
 from random import randint
-from visuals import dice_art
+from visuals import dice_art, die_height, die_width, die_separator
 
 
 # Get the amount of dice from the user
@@ -31,6 +31,32 @@ def roll_dice(amount: int) -> list[int]:
     return dice_numbers
 
 
+# Create a visual representation of the rolled dice.
+def generate_visual_for_rolled_dice(rolled_dice: list) -> str:
+    dice_faces: list = []
+    for die in rolled_dice:
+        dice_faces.append(dice_art[die])   
+
+    dice_face_rows: list = []
+    for row_index in range(die_height):
+        row_components: list = []
+
+        for die in dice_faces:
+            row_components.append(die[row_index])
+
+        row_output: str = die_separator.join(row_components)
+        dice_face_rows.append(row_output)
+
+    
+    width: int = len(dice_face_rows[0])
+    output_header: str = " Results ".center(width, "─")
+
+    output: str = "\n".join([output_header + "\n"] + dice_face_rows)
+    return output
+
+    
+
+
 def main() -> None:
     # Get the amount of dice from the user
     dice_amount: int = get_dice_amount()
@@ -40,7 +66,7 @@ def main() -> None:
         raise SystemExit(1)
 
     dice_result: list[int] = roll_dice(dice_amount)
-    print(dice_result)
+    print(generate_visual_for_rolled_dice(dice_result))
 
 
 if __name__ == "__main__":
